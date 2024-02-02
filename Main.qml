@@ -22,6 +22,13 @@ ApplicationWindow {
             display: AbstractButton.TextOnly
             onClicked: main_DIALOG_serial.open()
         }
+        ToolButton {
+            id: main_TOOLBUTTON_batch
+            anchors.left: main_TOOLBUTTON_serial.right
+            anchors.verticalCenter: parent.verticalCenter
+            text: qsTr("批次")
+            display: AbstractButton.TextOnly
+        }
     }
 
     TabBar {
