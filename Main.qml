@@ -24,10 +24,11 @@ ApplicationWindow {
         }
         ToolButton {
             id: main_TOOLBUTTON_batch
-            anchors.left: main_TOOLBUTTON_serial.right
+            anchors.left: main_TOOLBUTTON_serial.right; anchors.leftMargin: 10
             anchors.verticalCenter: parent.verticalCenter
             text: qsTr("批次")
             display: AbstractButton.TextOnly
+            onClicked: main_DIALOG_batch.open()
         }
     }
 
@@ -253,6 +254,64 @@ ApplicationWindow {
                 }
             }
 
+        }
+    }
+
+    Dialog {
+        id: main_DIALOG_batch
+        implicitWidth: 250; implicitHeight: 450
+        x: 0.5 * (parent.width - width); y: 0.5 * (parent.height - height)
+        modal: true
+        background: Rectangle {
+            width: main_DIALOG_batch.width; height: main_DIALOG_batch.height
+        }
+        header: ToolBar {
+            height: 40
+            Label {
+                anchors.centerIn: parent
+                text: qsTr("批次")
+                font.pixelSize: 16
+                color: "white"
+            }
+            ToolButton {
+                anchors.right: parent.right; anchors.rightMargin: 2
+                anchors.verticalCenter: parent.verticalCenter
+                icon.source: "assets/close.svg"
+                onClicked: {
+                    main_DIALOG_batch.close()
+                }
+            }
+        }
+        topPadding: 0; bottomPadding: 5; leftPadding: 5; rightPadding: 5
+        property real cellheight: 40
+        property real textsize: 16
+        property real textwidth: 80
+        ColumnLayout {
+            anchors.fill: parent
+            spacing: 0
+            Text {
+                text: qsTr("请选择批次:")
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                Layout.leftMargin: 5; Layout.topMargin: 5
+                verticalAlignment: Text.AlignVCenter
+                font.pixelSize: 16
+            }
+            ScrollView {
+                id: main_SCROLLVIEW_batch
+                Layout.fillHeight: true; Layout.fillWidth: true
+                contentWidth: availableWidth
+                ScrollBar.vertical: ScrollBar {
+                    parent: main_SCROLLVIEW_batch
+                    width: 10; height: main_SCROLLVIEW_batch.availableHeight
+                    hoverEnabled: true
+                    x: main_SCROLLVIEW_batch.width - width;
+//                    y: select_ITEM_header.height
+                    active: hovered || pressed
+                    orientation: Qt.Vertical
+//                    size: select_LISTVIEW.height / contentItem.height
+                }
+            }
         }
     }
 
